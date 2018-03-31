@@ -66,7 +66,9 @@ const NumberToStringConverter = (function () {
 	}
 
 	return {
-		getWord
+		getWord,
+		checkDecimal,
+		setSign
 	}
 })()
 
