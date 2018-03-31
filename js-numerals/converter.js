@@ -38,11 +38,23 @@ const NumberToStringConverter = (function () {
 	}
 
 	const getWord = (number) => {
+		let word = ''
 		let num = Math.floor(Math.abs(number))
+		let numString = num.toString()
 		let sign = setSign(number)
 		let fraction = checkDecimal(number)
 
-		return `${sign}${numbers[num]}${fraction}`
+		if (numString.length === 2 && !numbers.hasOwnProperty(numString)) {
+			word = createTwoDigitNumber(numString)
+			word = `${sign}${word}${fraction}`
+		} else {
+			word = `${sign}${numbers[num]}${fraction}`
+		}
+
+		// console.log(`${sign}${numbers[num]}${fraction}`)
+		console.log(word)
+		return word
+
 	}
 
 	const setSign = (number) => {
@@ -58,11 +70,16 @@ const NumberToStringConverter = (function () {
 		if (number % 1 !== 0) {
 			let fraction = number.toString().split('.')[1]
 			fractionWord = ' point'
-			Array.from(fraction).forEach((el) => {
-				fractionWord += ` ${numbers[parseInt(el)]}`
-			})
+			Array.from(fraction).forEach(el => fractionWord += ` ${numbers[parseInt(el)]}`)
 		}
 		return fractionWord
+	}
+
+	const createTwoDigitNumber = (numString) => {
+		let digits = Array.from(numString)
+		let firstDigit = parseInt(`${digits[0]}0`)
+		let secondDigit = parseInt(digits[1])
+		return `${numbers[firstDigit]}-${numbers[secondDigit]}`
 	}
 
 	return {

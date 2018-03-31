@@ -9,6 +9,7 @@ test('A passing test', (t) => {
 })
 
 test('Test for one digit number and decimals', (t) => {
+	t.plan(6)
 	t.equal(NumberToStringConverter.getWord(1), 'one'),
 	t.equal(NumberToStringConverter.getWord(0), 'zero')
 
@@ -30,5 +31,12 @@ test('Test setSign function', (t) => {
 test('Test checkDecimal function', (t) => {
 	t.equal(NumberToStringConverter.checkDecimal(9), '')
 	t.equal(NumberToStringConverter.checkDecimal(9.123), ' point one two three')
+	t.end()
+})
+
+test('Test for two digit number', (t) => {
+	t.equal(NumberToStringConverter.getWord(21), 'twenty-one')
+	t.equal(NumberToStringConverter.getWord(99), 'ninety-nine')
+	t.equal(NumberToStringConverter.getWord(-55), 'minus fifty-five')
 	t.end()
 })
