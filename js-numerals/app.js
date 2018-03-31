@@ -26,11 +26,12 @@ const App = function (numToStrCtrl, UICtrl) {
 	const convertNumber = () => {
 		// 1. get the number
 		const input = UICtrl.getInput()
-		console.log(input)
 
-		// 2. convert the number
+		if (!isNaN(input)) {
+			// 2. convert the number
 
-		// 3. display the number
+			// 3. display the number
+		}
 	}
 
 	return {
