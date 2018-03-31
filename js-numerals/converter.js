@@ -1,7 +1,7 @@
 'use strict'
 
-const NumberToStringConverter = function () {
+const NumberToStringConverter = (function () {
 	console.info('converter')
-}
+})()
 
 export default NumberToStringConverter
