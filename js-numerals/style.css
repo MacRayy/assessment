@@ -1,3 +1,78 @@
-h1 {
-	color: tomato;
+/* GENERAL */
+:root {
+	--color-grey-light-1: #faf9f9;
+
+	--color-grey-dark-1: #283048;
+	--color-grey-dark-2: #859398;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	box-sizing: border-box;
+	background: linear-gradient(to bottom, var(--color-grey-dark-1) 0%, var(--color-grey-dark-2) 100%);
+}
+
+.page {
+	color: var(--color-grey-light-1);
+	font-family: 'Open Sans', sans-serif;
+	height: 100vh;
+	margin: auto;
+	padding: 3rem 2rem;
+  max-width: 55rem;
+}
+
+/* HEADER */
+.heading {
+	font-size: 4rem;
+  margin-bottom: 4rem;
+}
+
+/* MAIN CONTETN */
+.content {
+	padding: .5rem;
+}
+
+.text {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+}
+
+/* FORM */
+.form__container {
+	display: grid;
+	grid-gap: 2rem;
+	grid-template-columns: max-content;
+	grid-template-rows: repeat(3, 1fr);
+	padding: 0rem 1rem 2rem;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.form__label {
+	font-size: 1.5rem;
+}
+
+.form__input {
+  border: none;
+  border-bottom: 1px solid white;
+  box-shadow: none;
+  font-size: 2rem;
+  color: white;
+  background-color: transparent;
+  width: 80vw;
+  max-width: 35rem;
+}
+
+.btn {
+	cursor: pointer;
+  border-radius: 10rem;
+  border: none;
+  color: var(--color-grey-dark-1);
+  font-size: 2rem;
+  height: 3.5rem;
+  width: 15rem;
 }
