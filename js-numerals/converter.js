@@ -38,25 +38,23 @@ const NumberToStringConverter = (function () {
 	}
 
 	const getWord = (number) => {
-		let word = ''
-		let phrase = ''
 		const num = Math.floor(Math.abs(number))
 		const numString = num.toString()
 		const digits = Array.from(numString)
 		const sign = setSign(number)
 		const fraction = checkDecimal(number)
 
+		let phrase = ''
+		let word = numbers[num]
+
 		if (numString.length === 2 && !numbers.hasOwnProperty(numString)) {
 			word = createTwoDigitNumber(digits)
-			phrase = `${sign}${word}${fraction}`
 		}  else if (numString.length === 3 && !numbers.hasOwnProperty(numString)) {
 			word = createThreeDigitNumber(digits)
-			phrase = `${sign}${word}${fraction}`
-		} else {
-			phrase = `${sign}${numbers[num]}${fraction}`
 		}
 
-		// console.log(`${sign}${numbers[num]}${fraction}`)
+		phrase = `${sign}${word}${fraction}`
+
 		console.log(phrase)
 		return phrase
 
@@ -90,10 +88,9 @@ const NumberToStringConverter = (function () {
 		let word = ''
 		const firstPart = `${numbers[parseInt(digits[0])]} hundred`
 		if (digits[1] === '0') {
-			console.log(parseInt(digits[2]))
 			word = `${firstPart} and ${numbers[parseInt(digits[2])]}`
 		} else {
-			let secondPart = createTwoDigitNumber(digits.slice(1))
+			const secondPart = createTwoDigitNumber(digits.slice(1))
 			word = `${firstPart} and ${secondPart}`
 		}
 		return word
