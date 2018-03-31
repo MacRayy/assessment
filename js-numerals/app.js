@@ -25,9 +25,10 @@ const App = function (numToStrCtrl, UICtrl) {
 
 	const convertNumber = () => {
 		// 1. get the number
-		const input = UICtrl.getInput()
+		const inputNumber = UICtrl.getInput()
 
-		if (!isNaN(input)) {
+		if (!isNaN(inputNumber)) {
+			numToStrCtrl.getWord(inputNumber)
 			// 2. convert the number
 
 			// 3. display the number
