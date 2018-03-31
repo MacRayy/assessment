@@ -14,6 +14,12 @@ const App = function (numToStrCtrl, UICtrl) {
 		const DOM = UICtrl.DOMStrings
 
 		document.querySelector(DOM.btn).addEventListener('click', convertNumber)
+
+		document.addEventListener('keypress', (event) => {
+			if (event.keyCode === 13 || event.which === 13) {
+				convertNumber()
+			}
+		})
 	}
 
 
