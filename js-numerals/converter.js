@@ -39,21 +39,26 @@ const NumberToStringConverter = (function () {
 
 	const getWord = (number) => {
 		let word = ''
-		let num = Math.floor(Math.abs(number))
-		let numString = num.toString()
-		let sign = setSign(number)
-		let fraction = checkDecimal(number)
+		let phrase = ''
+		const num = Math.floor(Math.abs(number))
+		const numString = num.toString()
+		const digits = Array.from(numString)
+		const sign = setSign(number)
+		const fraction = checkDecimal(number)
 
 		if (numString.length === 2 && !numbers.hasOwnProperty(numString)) {
-			word = createTwoDigitNumber(numString)
-			word = `${sign}${word}${fraction}`
+			word = createTwoDigitNumber(digits)
+			phrase = `${sign}${word}${fraction}`
+		}  else if (numString.length === 3 && !numbers.hasOwnProperty(numString)) {
+			word = createThreeDigitNumber(digits)
+			phrase = `${sign}${word}${fraction}`
 		} else {
-			word = `${sign}${numbers[num]}${fraction}`
+			phrase = `${sign}${numbers[num]}${fraction}`
 		}
 
 		// console.log(`${sign}${numbers[num]}${fraction}`)
-		console.log(word)
-		return word
+		console.log(phrase)
+		return phrase
 
 	}
 
@@ -68,18 +73,30 @@ const NumberToStringConverter = (function () {
 	const checkDecimal = (number) => {
 		let fractionWord = ''
 		if (number % 1 !== 0) {
-			let fraction = number.toString().split('.')[1]
+			const fraction = number.toString().split('.')[1]
 			fractionWord = ' point'
 			Array.from(fraction).forEach(el => fractionWord += ` ${numbers[parseInt(el)]}`)
 		}
 		return fractionWord
 	}
 
-	const createTwoDigitNumber = (numString) => {
-		let digits = Array.from(numString)
-		let firstDigit = parseInt(`${digits[0]}0`)
-		let secondDigit = parseInt(digits[1])
-		return `${numbers[firstDigit]}-${numbers[secondDigit]}`
+	const createTwoDigitNumber = (digits) => {
+		const firstPart = parseInt(`${digits[0]}0`)
+		const secondPart = parseInt(digits[1])
+		return `${numbers[firstPart]}-${numbers[secondPart]}`
+	}
+
+	const createThreeDigitNumber = (digits) => {
+		let word = ''
+		const firstPart = `${numbers[parseInt(digits[0])]} hundred`
+		if (digits[1] === '0') {
+			console.log(parseInt(digits[2]))
+			word = `${firstPart} and ${numbers[parseInt(digits[2])]}`
+		} else {
+			let secondPart = createTwoDigitNumber(digits.slice(1))
+			word = `${firstPart} and ${secondPart}`
+		}
+		return word
 	}
 
 	return {

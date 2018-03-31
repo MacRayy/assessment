@@ -40,3 +40,10 @@ test('Test for two digit number', (t) => {
 	t.equal(NumberToStringConverter.getWord(-55), 'minus fifty-five')
 	t.end()
 })
+
+test('Test for three digit number', (t) => {
+	t.equal(NumberToStringConverter.getWord(100), 'hundred')
+	t.equal(NumberToStringConverter.getWord(109), 'one hundred and nine')
+	t.equal(NumberToStringConverter.getWord(222), 'two hundred and twenty-two')
+	t.end()
+})
