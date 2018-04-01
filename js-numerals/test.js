@@ -62,11 +62,11 @@ test('Test for three digit number', (t) => {
 
 test('Test for four digit number', (t) => {
 	t.equal(NumberToStringConverter.getWord(2000), 'two thousand')
-	// t.equal(NumberToStringConverter.getWord(2001), 'two thousand and one')
-	// t.equal(NumberToStringConverter.getWord(2011), 'two thousand and eleven')
-	// t.equal(NumberToStringConverter.getWord(2055), 'two thousand and fifty-five')
-	// t.equal(NumberToStringConverter.getWord(2202), 'twenty-two thousand and two')
-	// t.equal(NumberToStringConverter.getWord(2211), 'twenty-two thousand and eleven')
-	// t.equal(NumberToStringConverter.getWord(2222), 'twenty-two thousand and twenty-two')
+	t.equal(NumberToStringConverter.getWord(2001), 'two thousand and one')
+	t.equal(NumberToStringConverter.getWord(2011), 'two thousand and eleven')
+	t.equal(NumberToStringConverter.getWord(2055), 'two thousand and fifty-five')
+	t.equal(NumberToStringConverter.getWord(2202), 'two thousand two hundred and two')
+	t.equal(NumberToStringConverter.getWord(2211), 'two thousand two hundred and eleven')
+	t.equal(NumberToStringConverter.getWord(2222), 'two thousand two hundred and twenty-two')
 	t.end()
 })

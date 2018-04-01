@@ -36,6 +36,8 @@ const NumberToStringConverter = (function () {
 
 	const scale = ['hundred', 'thousand', 'million', 'billion']
 
+
+	// CRETE WORD FROM NUMBER
 	const getWord = (number) => {
 		const num = Math.floor(Math.abs(number))
 		const numString = num.toString()
@@ -49,21 +51,21 @@ const NumberToStringConverter = (function () {
 			const digitGroups = splitIntoThreeDigits(num)
 
 			let wordArray = digitGroups.map(el => createHundreds(parseInt(el)))
-			console.log(wordArray)
 
 			let wordArrayWithScale = wordArray.reverse().map((el, index) => {
-				console.log(parseInt(digitGroups[index]))
-				console.log(el);
 				if (el !== '') {
 					return addScale(el, index)
 				}
 			})
 
 			if (num % 1000 === 0 && wordArrayWithScale.length > 2) {
-				console.log(wordArrayWithScale.reverse());
 				word = wordArrayWithScale.reverse().slice(0, 2).join(' ')
 			} else {
 				word = wordArrayWithScale.reverse().join(' ')
+			}
+
+			if (number > 1000 && number % 1000 < 100 && number % 1000 > 0) {
+				word = checkForAnd(word)
 			}
 		}
 
@@ -74,16 +76,10 @@ const NumberToStringConverter = (function () {
 
 	}
 
-	const setSign = (number) => {
-		let sign = ''
+	// SET MINUS
+	const setSign = number => number < 0 ? 'minus ' : ''
 
-		if (number < 0) {
-			sign = 'minus '
-		}
-
-		return sign
-	}
-
+	// ADD DECIMAL NUMBERS
 	const checkDecimal = (number) => {
 		let fractionWord = ''
 
@@ -96,6 +92,7 @@ const NumberToStringConverter = (function () {
 		return fractionWord
 	}
 
+	// CREATE NUMBER TEXT
 	const splitIntoThreeDigits = (num) => {
 		const digitGroups = []
 
@@ -129,8 +126,6 @@ const NumberToStringConverter = (function () {
 
 		let hundredText = ''
 
-		// console.log(hundreds, ' - ', tens)
-
 		if (hundreds !== 0) {
 			hundredText = `${numbers[hundreds]} hundred`
 
@@ -138,10 +133,8 @@ const NumberToStringConverter = (function () {
 				hundredText += ' and '
 			}
 		}
-		// console.log(tens);
 		hundredText += createTens(tens)
 
-		// console.log(hundredText);
 		return hundredText
 	}
 
@@ -151,11 +144,8 @@ const NumberToStringConverter = (function () {
 
 		let tensText = ''
 
-		// console.log(tens, ' - ', unit)
-
 		if (tens > 1) {
 			tensText = numbers[tens * 10]
-
 			if (unit !== 0) {
 				tensText += `-${numbers[unit]}`
 			}
@@ -163,18 +153,19 @@ const NumberToStringConverter = (function () {
 			tensText = numbers[num]
 		}
 
-		// console.log(tensText)
 		return tensText
 	}
 
-	const addScale = (text, position) => {
-		let textWithScale = text
+	const addScale = (text, position) => position !== 0 ? `${text} ${scale[position]}` : text
 
-		if (position !== 0) {
-			textWithScale += ` ${scale[position]}`
+	const checkForAnd = (word) => {
+		if (word.includes(' and ') === false) {
+			let wordArr = word.split(' ')
+			let wordArrWithAnd = wordArr.splice(wordArr.length - 1, 0, 'and')
+			wordArr = wordArr.join(' ')
+
+			return wordArr
 		}
-
-		return textWithScale
 	}
 
 	return {
