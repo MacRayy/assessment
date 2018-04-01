@@ -11,14 +11,15 @@ const UIController = (function () {
 
 	const getInput = () => parseFloat(document.querySelector(DOMStrings.inputValue).value)
 
-	const displayText = (text) => {
-		document.querySelector(DOMStrings.outputText).innerHTML = text
-	}
+	const displayText = text => document.querySelector(DOMStrings.outputText).innerHTML = text
+
+	const clearField = () => document.querySelector(DOMStrings.inputValue).value = ''
 
 	return {
 		DOMStrings,
 		getInput,
-		displayText
+		displayText,
+		clearField
 	}
 })()
 

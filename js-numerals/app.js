@@ -34,6 +34,9 @@ const App = function (numToStrCtrl, UICtrl) {
 
 			// 3. display the number
 			UICtrl.displayText(phrase)
+
+			// 4. clear input field
+			UICtrl.clearField()
 		}
 	}
 
