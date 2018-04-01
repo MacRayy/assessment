@@ -71,7 +71,6 @@ const NumberToStringConverter = (function () {
 
 		console.log(phrase)
 		return phrase
-
 	}
 
 	// SET MINUS
