@@ -47,10 +47,12 @@ const NumberToStringConverter = (function () {
 		let phrase = ''
 		let word = numbers[num]
 
-		if (numString.length === 2 && !numbers.hasOwnProperty(numString)) {
-			word = createTwoDigitNumber(digits)
-		}  else if (numString.length === 3 && !numbers.hasOwnProperty(numString)) {
-			word = createThreeDigitNumber(digits)
+		if (numString.length === 2) {
+			word = createTens(digits, numString, num)
+		}  else if (numString.length === 3) {
+			word = createHundreds(digits, numString, num)
+		} else if (numString.length === 4) {
+			word = createThousands(digits, numString, num)
 		}
 
 		phrase = `${sign}${word}${fraction}`
@@ -62,37 +64,93 @@ const NumberToStringConverter = (function () {
 
 	const setSign = (number) => {
 		let sign = ''
+
 		if (number < 0) {
 			sign = 'minus '
 		}
+
 		return sign
 	}
 
 	const checkDecimal = (number) => {
 		let fractionWord = ''
+
 		if (number % 1 !== 0) {
 			const fraction = number.toString().split('.')[1]
 			fractionWord = ' point'
 			Array.from(fraction).forEach(el => fractionWord += ` ${numbers[parseInt(el)]}`)
 		}
+
 		return fractionWord
 	}
 
-	const createTwoDigitNumber = (digits) => {
-		const firstPart = parseInt(`${digits[0]}0`)
-		const secondPart = parseInt(digits[1])
-		return `${numbers[firstPart]}-${numbers[secondPart]}`
+	const createTens = (digits, numString, num) => {
+		let word = ''
+
+		if (numbers.hasOwnProperty(numString)) {
+			word = numbers[num]
+		} else {
+			const firstPart = parseInt(`${digits[0]}0`)
+			const secondPart = parseInt(digits[1])
+			word = `${numbers[firstPart]}-${numbers[secondPart]}`
+		}
+		return word
 	}
 
-	const createThreeDigitNumber = (digits) => {
+	const createHundreds = (digits, numString, num) => {
 		let word = ''
 		const firstPart = `${numbers[parseInt(digits[0])]} hundred`
-		if (digits[1] === '0') {
+
+		if (num % 100 === 0) {
+			word = firstPart
+		} else if (digits[1] === '0') {
 			word = `${firstPart} and ${numbers[parseInt(digits[2])]}`
 		} else {
-			const secondPart = createTwoDigitNumber(digits.slice(1))
+			const secondPart = createTens(digits.slice(1), numString.slice(1), parseInt(numString.slice(1)))
 			word = `${firstPart} and ${secondPart}`
 		}
+		return word
+	}
+
+	// 2001 == two thousand and one
+	// 2055 == two thousand and fifty-five
+	// 1999 == nineteen hundred and ninety-nine
+	const createThousands = (digits, numString, num) => {
+		let word = ''
+		let firstPart = ''
+		let secondPart = ''
+		let number = numbers[parseInt(digits[0])]
+
+		firstPart = `${number} thousand`
+
+		if (num % 1000 === 0) {
+			word = firstPart
+		} else if (digits[1] === '0') {
+			if (digits[2] === '0') {
+				secondPart = `and ${numbers[digits[digits.length - 1]]}`
+				word = `${firstPart} ${secondPart}`
+			} else {
+				secondPart = createTens(digits.slice(2), numString.slice(2), parseInt(numString.slice(2)))
+				word = `${firstPart} and ${secondPart}`
+			}
+		} else {
+
+			let firstTwoDigits = Array.from(numString.substring(-2, 2))
+
+			number = createTens(firstTwoDigits, numString.substring(-2, 2), parseInt(numString.substring(-2, 2)))
+
+			firstPart = `${number} thousand`
+
+			if (digits[2] === '0') {
+				secondPart = `and ${numbers[digits[digits.length - 1]]}`
+				word = `${firstPart} ${secondPart}`
+			} else {
+				secondPart = createTens(digits.slice(2), numString.slice(2), parseInt(numString.slice(2)))
+				word = `${firstPart} and ${secondPart}`
+			}
+		}
+
+		console.log(word)
 		return word
 	}
 
