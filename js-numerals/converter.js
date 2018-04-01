@@ -32,6 +32,9 @@ const NumberToStringConverter = (function () {
 		70: 'seventy',
 		80: 'eighty',
 		90: 'ninety',
+	}
+
+	const scale = {
 		100: 'hundred',
 		1000: 'thousand',
 		1000000: 'million'
@@ -48,8 +51,12 @@ const NumberToStringConverter = (function () {
 		let word = numbers[num]
 
 		if (!numbers.hasOwnProperty(numString)) {
-			splitIntoThreeDigits(num, numString)
+			const digitGroups = splitIntoThreeDigits(num)
+
+			let wordArray = digitGroups.map(el => createHundreds(parseInt(el)))
+			console.log(wordArray);
 		}
+
 
 		// if (numString.length === 2) {
 		// 	word = createTens(digits, numString, num)
@@ -89,8 +96,9 @@ const NumberToStringConverter = (function () {
 	}
 
 	const splitIntoThreeDigits = (num) => {
+		const digitGroups = []
+
 		let numStr = num.toString()
-		let digitGroups = []
 
 		if (numStr.length >= 3) {
 			let counter = numStr.length
@@ -112,6 +120,50 @@ const NumberToStringConverter = (function () {
 		}
 
 		return digitGroups
+	}
+
+	const createHundreds = (num) => {
+		const hundreds = Math.floor(num / 100)
+		const tens = num % 100
+
+		let hundredText = ''
+
+		// console.log(hundreds, ' - ', tens)
+
+		if (hundreds !== 0) {
+			hundredText = `${numbers[hundreds]} hundred`
+
+			if (tens !== 0) {
+				hundredText += ' and '
+			}
+		}
+		// console.log(tens);
+		hundredText += createTens(tens)
+
+		// console.log(hundredText);
+		return hundredText
+	}
+
+	const createTens = (num) => {
+		const tens = Math.floor(num / 10)
+		const unit = num % 10
+
+		let tensText = ''
+
+		// console.log(tens, ' - ', unit)
+
+		if (tens > 1) {
+			tensText = numbers[tens * 10]
+
+			if (unit !== 0) {
+				tensText += `-${numbers[unit]}`
+			}
+		} else if (num !== 0) {
+			tensText = numbers[num]
+		}
+
+		// console.log(tensText)
+		return tensText
 	}
 
 	// const createTens = (digits, numString, num) => {
