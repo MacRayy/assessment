@@ -22,7 +22,6 @@ const App = function (numToStrCtrl, UICtrl) {
 		})
 	}
 
-
 	const convertNumber = () => {
 		// 1. get the number
 		const inputNumber = UICtrl.getInput()
