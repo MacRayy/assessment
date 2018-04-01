@@ -44,6 +44,12 @@ test('Test for splitting the number into smaller arrays', (t) => {
 	t.end()
 })
 
+test('Test for creating numbers', (t) => {
+	t.equal(NumberToStringConverter.createHundreds(100), 'one hundred')
+	t.equal(NumberToStringConverter.createHundreds(111), 'one hundred and eleven')
+	t.end()
+})
+
 test('Test for two digit number', (t) => {
 	t.equal(NumberToStringConverter.getWord(21), 'twenty-one')
 	t.equal(NumberToStringConverter.getWord(99), 'ninety-nine')
@@ -70,3 +76,10 @@ test('Test for four digit number', (t) => {
 	t.equal(NumberToStringConverter.getWord(2222), 'two thousand two hundred and twenty-two')
 	t.end()
 })
+
+test('Test for big numbers', (t) => {
+	t.equal(NumberToStringConverter.getWord(123456789), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine')
+	t.equal(NumberToStringConverter.getWord(123456789.98), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine point nine eight')
+	t.end()
+})
+

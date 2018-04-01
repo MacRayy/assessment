@@ -33,9 +33,7 @@ const NumberToStringConverter = (function () {
 		80: 'eighty',
 		90: 'ninety'
 	}
-
 	const scale = ['hundred', 'thousand', 'million', 'billion']
-
 
 	// CRETE WORD FROM NUMBER
 	const getWord = (number) => {
@@ -172,6 +170,7 @@ const NumberToStringConverter = (function () {
 		getWord,
 		checkDecimal,
 		splitIntoThreeDigits,
+		createHundreds,
 		setSign
 	}
 })()
