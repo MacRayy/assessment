@@ -15,7 +15,7 @@ const App = function (numToStrCtrl, UICtrl) {
 
 		document.querySelector(DOM.btn).addEventListener('click', convertNumber)
 
-		document.addEventListener('keypress', (event) => {
+		document.addEventListener('keypress', event => {
 			if (event.keyCode === 13 || event.which === 13) {
 				convertNumber()
 			}
@@ -28,10 +28,12 @@ const App = function (numToStrCtrl, UICtrl) {
 		const inputNumber = UICtrl.getInput()
 
 		if (!isNaN(inputNumber)) {
-			numToStrCtrl.getWord(inputNumber)
 			// 2. convert the number
+			const phrase = numToStrCtrl.getWord(inputNumber)
+			console.log(phrase)
 
 			// 3. display the number
+			UICtrl.displayText(phrase)
 		}
 	}
 
