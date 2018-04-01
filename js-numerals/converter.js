@@ -31,19 +31,14 @@ const NumberToStringConverter = (function () {
 		60: 'sixty',
 		70: 'seventy',
 		80: 'eighty',
-		90: 'ninety',
+		90: 'ninety'
 	}
 
-	const scale = {
-		100: 'hundred',
-		1000: 'thousand',
-		1000000: 'million'
-	}
+	const scale = ['hundred', 'thousand', 'million', 'billion']
 
 	const getWord = (number) => {
 		const num = Math.floor(Math.abs(number))
 		const numString = num.toString()
-		const digits = Array.from(numString)
 		const sign = setSign(number)
 		const fraction = checkDecimal(number)
 
@@ -54,19 +49,25 @@ const NumberToStringConverter = (function () {
 			const digitGroups = splitIntoThreeDigits(num)
 
 			let wordArray = digitGroups.map(el => createHundreds(parseInt(el)))
-			console.log(wordArray);
+			console.log(wordArray)
+
+			let wordArrayWithScale = wordArray.reverse().map((el, index) => {
+				console.log(parseInt(digitGroups[index]))
+				console.log(el);
+				if (el !== '') {
+					return addScale(el, index)
+				}
+			})
+
+			if (num % 1000 === 0 && wordArrayWithScale.length > 2) {
+				console.log(wordArrayWithScale.reverse());
+				word = wordArrayWithScale.reverse().slice(0, 2).join(' ')
+			} else {
+				word = wordArrayWithScale.reverse().join(' ')
+			}
 		}
 
-
-		// if (numString.length === 2) {
-		// 	word = createTens(digits, numString, num)
-		// }  else if (numString.length === 3) {
-		// 	word = createHundreds(digits, numString, num)
-		// } else if (numString.length === 4) {
-		// 	word = createThousands(digits, numString, num)
-		// }
-
-		phrase = `${sign}${word}${fraction}`
+		phrase = `${sign}${word.trim()}${fraction}`
 
 		console.log(phrase)
 		return phrase
@@ -166,75 +167,15 @@ const NumberToStringConverter = (function () {
 		return tensText
 	}
 
-	// const createTens = (digits, numString, num) => {
-	// 	let word = ''
+	const addScale = (text, position) => {
+		let textWithScale = text
 
-	// 	if (numbers.hasOwnProperty(numString)) {
-	// 		word = numbers[num]
-	// 	} else {
-	// 		const firstPart = parseInt(`${digits[0]}0`)
-	// 		const secondPart = parseInt(digits[1])
-	// 		word = `${numbers[firstPart]}-${numbers[secondPart]}`
-	// 	}
-	// 	return word
-	// }
+		if (position !== 0) {
+			textWithScale += ` ${scale[position]}`
+		}
 
-	// const createHundreds = (digits, numString, num) => {
-	// 	let word = ''
-	// 	const firstPart = `${numbers[parseInt(digits[0])]} hundred`
-
-	// 	if (num % 100 === 0) {
-	// 		word = firstPart
-	// 	} else if (digits[1] === '0') {
-	// 		word = `${firstPart} and ${numbers[parseInt(digits[2])]}`
-	// 	} else {
-	// 		const secondPart = createTens(digits.slice(1), numString.slice(1), parseInt(numString.slice(1)))
-	// 		word = `${firstPart} and ${secondPart}`
-	// 	}
-	// 	return word
-	// }
-
-	// 2001 == two thousand and one
-	// 2055 == two thousand and fifty-five
-	// 1999 == nineteen hundred and ninety-nine
-	// const createThousands = (digits, numString, num) => {
-	// 	let word = ''
-	// 	let firstPart = ''
-	// 	let secondPart = ''
-	// 	let number = numbers[parseInt(digits[0])]
-
-	// 	firstPart = `${number} thousand`
-
-	// 	if (num % 1000 === 0) {
-	// 		word = firstPart
-	// 	} else if (digits[1] === '0') {
-	// 		if (digits[2] === '0') {
-	// 			secondPart = `and ${numbers[digits[digits.length - 1]]}`
-	// 			word = `${firstPart} ${secondPart}`
-	// 		} else {
-	// 			secondPart = createTens(digits.slice(2), numString.slice(2), parseInt(numString.slice(2)))
-	// 			word = `${firstPart} and ${secondPart}`
-	// 		}
-	// 	} else {
-
-	// 		let firstTwoDigits = Array.from(numString.substring(-2, 2))
-
-	// 		number = createTens(firstTwoDigits, numString.substring(-2, 2), parseInt(numString.substring(-2, 2)))
-
-	// 		firstPart = `${number} thousand`
-
-	// 		if (digits[2] === '0') {
-	// 			secondPart = `and ${numbers[digits[digits.length - 1]]}`
-	// 			word = `${firstPart} ${secondPart}`
-	// 		} else {
-	// 			secondPart = createTens(digits.slice(2), numString.slice(2), parseInt(numString.slice(2)))
-	// 			word = `${firstPart} and ${secondPart}`
-	// 		}
-	// 	}
-
-	// 	console.log(word)
-	// 	return word
-	// }
+		return textWithScale
+	}
 
 	return {
 		getWord,
