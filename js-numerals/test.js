@@ -78,6 +78,8 @@ test('Test for four digit number', (t) => {
 })
 
 test('Test for big numbers', (t) => {
+	t.equal(NumberToStringConverter.getWord(1000000), 'one million')
+	t.equal(NumberToStringConverter.getWord(1000001), 'one million  and one')
 	t.equal(NumberToStringConverter.getWord(123456789), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine')
 	t.equal(NumberToStringConverter.getWord(123456789.98), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine point nine eight')
 	t.end()
