@@ -1,8 +1,6 @@
 'use strict'
 
 const UIController = (function () {
-	console.info('UI')
-
 	const DOMStrings = {
 		btn: '.btn',
 		inputValue: '.form__input',

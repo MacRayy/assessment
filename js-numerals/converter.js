@@ -1,8 +1,6 @@
 'use strict'
 
 const NumberToStringConverter = (function () {
-	console.info('converter')
-
 	const numbers = {
 		0: 'zero',
 		1: 'one',
@@ -69,7 +67,6 @@ const NumberToStringConverter = (function () {
 
 		phrase = `${sign}${word.trim()}${fraction}`
 
-		console.log(phrase)
 		return phrase
 	}
 
@@ -97,9 +94,6 @@ const NumberToStringConverter = (function () {
 
 		if (numStr.length >= 3) {
 			let counter = numStr.length
-
-			// REGEX
-			// digitGroups = numStr.split( /(?=(?:...)*$)/ )
 
 			while (counter > 0) {
 				counter -= 3
