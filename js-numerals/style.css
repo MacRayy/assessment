@@ -60,12 +60,12 @@ body {
 
 .form__label {
 	font-size: 1.5rem;
-	transform: translateY(5rem);
+	transform: translateY(6.5rem);
 	transition: all .3s ease;
 }
 
 .form__input:focus + .form__label {
-	transform: translateY(1rem) scale(.8);
+	transform: translateY(1.5rem) scale(.8);
 }
 
 .form__input {
@@ -97,7 +97,7 @@ input:focus {
 	display: inline-block;
 	font-size: 3rem;
 	font-weight: 300;
-	padding: 1rem 2rem;
+	padding: .5rem 2rem;
 	text-decoration: none;
 	text-transform: uppercase;
 	transition: all .4s;
