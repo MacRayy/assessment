@@ -28,7 +28,7 @@ const App = function (numToStrCtrl, UICtrl) {
 
 		if (!isNaN(inputNumber)) {
 			// 2. convert the number
-			const phrase = numToStrCtrl.getWord(inputNumber)
+			const phrase = numToStrCtrl.createWord(inputNumber)
 
 			// 3. display the number
 			UICtrl.displayText(phrase)

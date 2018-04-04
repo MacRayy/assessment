@@ -34,11 +34,11 @@ const NumberToStringConverter = (function () {
 	const scale = ['hundred', 'thousand', 'million', 'billion']
 
 	// CRETE WORD FROM NUMBER
-	const getWord = (number) => {
+	const createWord = (number) => {
 		const num = Math.floor(Math.abs(number))
 		const numString = num.toString()
 		const sign = setSign(number)
-		const fraction = checkDecimal(number)
+		const fraction = buildDecimal(number)
 
 		let phrase = ''
 		let word = numbers[num]
@@ -54,14 +54,10 @@ const NumberToStringConverter = (function () {
 				}
 			})
 
-			if (num % 1000 === 0 && wordArrayWithScale.length > 2) {
-				word = wordArrayWithScale.reverse().slice(0, 2).join(' ')
-			} else {
-				word = wordArrayWithScale.reverse().join(' ')
-			}
+			word = reverseAndJoin (num, wordArrayWithScale)
 
 			if (number > 1000 && number % 1000 < 100 && number % 1000 > 0) {
-				word = checkForAnd(word)
+				word = remoweAnd(word)
 			}
 		}
 
@@ -74,7 +70,7 @@ const NumberToStringConverter = (function () {
 	const setSign = number => number < 0 ? 'minus ' : ''
 
 	// ADD DECIMAL NUMBERS
-	const checkDecimal = (number) => {
+	const buildDecimal = number => {
 		let fractionWord = ''
 
 		if (number % 1 !== 0) {
@@ -87,10 +83,10 @@ const NumberToStringConverter = (function () {
 	}
 
 	// CREATE NUMBER TEXT
-	const splitIntoThreeDigits = (num) => {
+	const splitIntoThreeDigits = number => {
 		const digitGroups = []
 
-		let numStr = num.toString()
+		let numStr = number.toString()
 
 		if (numStr.length >= 3) {
 			let counter = numStr.length
@@ -111,7 +107,7 @@ const NumberToStringConverter = (function () {
 		return digitGroups
 	}
 
-	const createHundreds = (num) => {
+	const createHundreds = num => {
 		const hundreds = Math.floor(num / 100)
 		const tens = num % 100
 
@@ -129,7 +125,7 @@ const NumberToStringConverter = (function () {
 		return hundredText
 	}
 
-	const createTens = (num) => {
+	const createTens = num => {
 		const tens = Math.floor(num / 10)
 		const unit = num % 10
 
@@ -149,8 +145,8 @@ const NumberToStringConverter = (function () {
 
 	const addScale = (text, position) => position !== 0 ? `${text} ${scale[position]}` : text
 
-	const checkForAnd = (word) => {
-		if (word.includes(' and ') === false) {
+	const remoweAnd = word => {
+		if (!word.includes(' and ')) {
 			let wordArr = word.split(' ')
 			let wordArrWithAnd = wordArr.splice(wordArr.length - 1, 0, 'and')
 			wordArr = wordArr.join(' ')
@@ -159,9 +155,17 @@ const NumberToStringConverter = (function () {
 		}
 	}
 
+	const reverseAndJoin = (number, reversedWord) => {
+		if (number % 1000 === 0 && reversedWord.length > 2) {
+			return reversedWord.reverse().slice(0, 2).join(' ')
+		} else {
+			return reversedWord.reverse().join(' ')
+		}
+	}
+
 	return {
-		getWord,
-		checkDecimal,
+		createWord,
+		buildDecimal,
 		splitIntoThreeDigits,
 		createHundreds,
 		setSign

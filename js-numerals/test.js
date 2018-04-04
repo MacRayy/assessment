@@ -10,15 +10,15 @@ test('A passing test', (t) => {
 
 test('Test for one digit number and decimals', (t) => {
 	t.plan(6)
-	t.equal(NumberToStringConverter.getWord(0), 'zero')
-	t.equal(NumberToStringConverter.getWord(1), 'one'),
+	t.equal(NumberToStringConverter.createWord(0), 'zero')
+	t.equal(NumberToStringConverter.createWord(1), 'one'),
 
-	t.equal(NumberToStringConverter.getWord(-5), 'minus five')
+	t.equal(NumberToStringConverter.createWord(-5), 'minus five')
 
-	t.equal(NumberToStringConverter.getWord(6.7), 'six point seven')
-	t.equal(NumberToStringConverter.getWord(5.723), 'five point seven two three')
+	t.equal(NumberToStringConverter.createWord(6.7), 'six point seven')
+	t.equal(NumberToStringConverter.createWord(5.723), 'five point seven two three')
 
-	t.equal(NumberToStringConverter.getWord(-2.3), 'minus two point three')
+	t.equal(NumberToStringConverter.createWord(-2.3), 'minus two point three')
 	t.end()
 })
 
@@ -28,9 +28,9 @@ test('Test setSign function', (t) => {
 	t.end()
 })
 
-test('Test checkDecimal function', (t) => {
-	t.equal(NumberToStringConverter.checkDecimal(9), '')
-	t.equal(NumberToStringConverter.checkDecimal(9.123), ' point one two three')
+test('Test buildDecimal function', (t) => {
+	t.equal(NumberToStringConverter.buildDecimal(9), '')
+	t.equal(NumberToStringConverter.buildDecimal(9.123), ' point one two three')
 	t.end()
 })
 
@@ -51,37 +51,37 @@ test('Test for creating numbers', (t) => {
 })
 
 test('Test for two digit number', (t) => {
-	t.equal(NumberToStringConverter.getWord(21), 'twenty-one')
-	t.equal(NumberToStringConverter.getWord(99), 'ninety-nine')
-	t.equal(NumberToStringConverter.getWord(-55), 'minus fifty-five')
+	t.equal(NumberToStringConverter.createWord(21), 'twenty-one')
+	t.equal(NumberToStringConverter.createWord(99), 'ninety-nine')
+	t.equal(NumberToStringConverter.createWord(-55), 'minus fifty-five')
 	t.end()
 })
 
 test('Test for three digit number', (t) => {
-	t.equal(NumberToStringConverter.getWord(100), 'one hundred')
-	t.equal(NumberToStringConverter.getWord(109), 'one hundred and nine')
-	t.equal(NumberToStringConverter.getWord(111), 'one hundred and eleven')
-	t.equal(NumberToStringConverter.getWord(222), 'two hundred and twenty-two')
-	t.equal(NumberToStringConverter.getWord(200), 'two hundred')
+	t.equal(NumberToStringConverter.createWord(100), 'one hundred')
+	t.equal(NumberToStringConverter.createWord(109), 'one hundred and nine')
+	t.equal(NumberToStringConverter.createWord(111), 'one hundred and eleven')
+	t.equal(NumberToStringConverter.createWord(222), 'two hundred and twenty-two')
+	t.equal(NumberToStringConverter.createWord(200), 'two hundred')
 	t.end()
 })
 
 test('Test for four digit number', (t) => {
-	t.equal(NumberToStringConverter.getWord(2000), 'two thousand')
-	t.equal(NumberToStringConverter.getWord(2001), 'two thousand and one')
-	t.equal(NumberToStringConverter.getWord(2011), 'two thousand and eleven')
-	t.equal(NumberToStringConverter.getWord(2055), 'two thousand and fifty-five')
-	t.equal(NumberToStringConverter.getWord(2202), 'two thousand two hundred and two')
-	t.equal(NumberToStringConverter.getWord(2211), 'two thousand two hundred and eleven')
-	t.equal(NumberToStringConverter.getWord(2222), 'two thousand two hundred and twenty-two')
+	t.equal(NumberToStringConverter.createWord(2000), 'two thousand')
+	t.equal(NumberToStringConverter.createWord(2001), 'two thousand and one')
+	t.equal(NumberToStringConverter.createWord(2011), 'two thousand and eleven')
+	t.equal(NumberToStringConverter.createWord(2055), 'two thousand and fifty-five')
+	t.equal(NumberToStringConverter.createWord(2202), 'two thousand two hundred and two')
+	t.equal(NumberToStringConverter.createWord(2211), 'two thousand two hundred and eleven')
+	t.equal(NumberToStringConverter.createWord(2222), 'two thousand two hundred and twenty-two')
 	t.end()
 })
 
 test('Test for big numbers', (t) => {
-	t.equal(NumberToStringConverter.getWord(1000000), 'one million')
-	t.equal(NumberToStringConverter.getWord(1000001), 'one million  and one')
-	t.equal(NumberToStringConverter.getWord(123456789), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine')
-	t.equal(NumberToStringConverter.getWord(123456789.98), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine point nine eight')
+	t.equal(NumberToStringConverter.createWord(1000000), 'one million')
+	t.equal(NumberToStringConverter.createWord(1000001), 'one million  and one')
+	t.equal(NumberToStringConverter.createWord(123456789), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine')
+	t.equal(NumberToStringConverter.createWord(123456789.98), 'one hundred and twenty-three million four hundred and fifty-six thousand seven hundred and eighty-nine point nine eight')
 	t.end()
 })
 
